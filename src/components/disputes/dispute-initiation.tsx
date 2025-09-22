@@ -124,18 +124,18 @@ export function DisputeInitiation({ projectId, onDisputeCreated, onCancel }: Dis
 
             <div>
               <label className="block text-sm font-medium text-[#002333] mb-2">Issue Type *</label>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {DISPUTE_TYPES.map((type) => (
                   <Card
                     key={type.value}
-                    className={`cursor-pointer p-4 transition-all ${
+                    className={`cursor-pointer p-3 sm:p-4 transition-all ${
                       formData.disputeType === type.value
                         ? 'ring-2 ring-[#149A9B] bg-[#e4f7f7]'
                         : 'hover:shadow-md'
                     }`}
                     onClick={() => setFormData(prev => ({ ...prev, disputeType: type.value as DisputeType }))}
                   >
-                    <h4 className="font-medium text-[#002333]">{type.label}</h4>
+                    <h4 className="font-medium text-[#002333] text-sm sm:text-base">{type.label}</h4>
                   </Card>
                 ))}
               </div>
@@ -272,19 +272,19 @@ export function DisputeInitiation({ projectId, onDisputeCreated, onCancel }: Dis
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6">
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold text-[#002333] mb-2">Submit Dispute</h1>
-        <p className="text-[#6D758F]">Step {step + 1} of {STEPS.length}</p>
+    <div className="max-w-2xl mx-auto p-4 sm:p-6">
+      <div className="mb-6 sm:mb-8">
+        <h1 className="text-xl sm:text-2xl font-bold text-[#002333] mb-2">Submit Dispute</h1>
+        <p className="text-[#6D758F] text-sm sm:text-base">Step {step + 1} of {STEPS.length}</p>
       </div>
 
       {/* Progress */}
       <div className="mb-6">
-        <div className="flex items-center">
+        <div className="flex items-center justify-between sm:justify-start overflow-x-auto pb-2">
           {STEPS.map((_, index) => (
-            <div key={index} className="flex items-center">
+            <div key={index} className="flex items-center flex-shrink-0">
               <div
-                className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
+                className={`w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs sm:text-sm font-medium ${
                   index <= step
                     ? 'bg-[#149A9B] text-white'
                     : 'bg-[#E1E4ED] text-[#6D758F]'
@@ -294,7 +294,7 @@ export function DisputeInitiation({ projectId, onDisputeCreated, onCancel }: Dis
               </div>
               {index < STEPS.length - 1 && (
                 <div
-                  className={`h-0.5 w-16 mx-2 ${
+                  className={`h-0.5 w-8 sm:w-16 mx-1 sm:mx-2 ${
                     index < step ? 'bg-[#149A9B]' : 'bg-[#E1E4ED]'
                   }`}
                 />
@@ -302,8 +302,8 @@ export function DisputeInitiation({ projectId, onDisputeCreated, onCancel }: Dis
             </div>
           ))}
         </div>
-        <div className="mt-4">
-          <h2 className="text-lg font-medium text-[#002333]">{STEPS[step]}</h2>
+        <div className="mt-3 sm:mt-4">
+          <h2 className="text-base sm:text-lg font-medium text-[#002333]">{STEPS[step]}</h2>
         </div>
       </div>
 
@@ -313,11 +313,12 @@ export function DisputeInitiation({ projectId, onDisputeCreated, onCancel }: Dis
       </div>
 
       {/* Navigation */}
-      <div className="flex justify-between">
+      <div className="flex flex-col sm:flex-row justify-between gap-3 sm:gap-0">
         <Button
           variant="outline"
           onClick={step === 0 ? onCancel : prevStep}
           disabled={uploading}
+          className="w-full sm:w-auto order-2 sm:order-1"
         >
           {step === 0 ? 'Cancel' : 'Back'}
         </Button>
@@ -325,7 +326,7 @@ export function DisputeInitiation({ projectId, onDisputeCreated, onCancel }: Dis
         <Button
           onClick={step === STEPS.length - 1 ? handleSubmit : nextStep}
           disabled={uploading}
-          className="bg-[#149A9B] hover:bg-[#118787]"
+          className="bg-[#149A9B] hover:bg-[#118787] w-full sm:w-auto order-1 sm:order-2"
         >
           {uploading ? 'Submitting...' : step === STEPS.length - 1 ? 'Submit Dispute' : 'Continue'}
         </Button>

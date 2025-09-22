@@ -164,20 +164,20 @@ export default function AutomatedDisputeDemo() {
 
         {/* Progress Indicator */}
         <Card className="bg-gradient-to-r from-[#e4f7f7] to-[#f0fdfe] border-[#96dfdf]">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="font-semibold text-gray-900">Demo Progress</h3>
-              <Badge className="bg-[#e4f7f7] text-[#0d6e6e]">
+          <CardContent className="p-4 sm:p-6">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0 mb-4">
+              <h3 className="font-semibold text-gray-900 text-lg">Demo Progress</h3>
+              <Badge className="bg-[#e4f7f7] text-[#0d6e6e] self-start sm:self-auto">
                 {completedStepsCount}/4 Steps Complete
               </Badge>
             </div>
-            <div className="w-full bg-gray-200 rounded-full h-2">
+            <div className="w-full bg-gray-200 rounded-full h-2 mb-4">
               <div 
                 className="bg-[#149A9B] h-2 rounded-full transition-all duration-500"
                 style={{ width: `${progressPercentage}%` }}
               />
             </div>
-            <div className="flex justify-between mt-4">
+            <div className="grid grid-cols-2 sm:flex sm:justify-between gap-3 sm:gap-2">
               {[
                 { key: 'initiation', label: 'Dispute Initiation' },
                 { key: 'categorization', label: 'AI Categorization' },
@@ -186,7 +186,7 @@ export default function AutomatedDisputeDemo() {
               ].map((step) => (
                 <div key={step.key} className="flex items-center space-x-2">
                   {getStepIcon(step.key, demoSteps[step.key])}
-                  <span className={`text-sm ${demoSteps[step.key] ? 'text-green-600' : 'text-gray-600'}`}>
+                  <span className={`text-xs sm:text-sm ${demoSteps[step.key] ? 'text-green-600' : 'text-gray-600'} leading-tight`}>
                     {step.label}
                   </span>
                 </div>
@@ -198,13 +198,40 @@ export default function AutomatedDisputeDemo() {
 
       {/* Demo Tabs */}
       <Tabs value={activeDemo} onValueChange={setActiveDemo} className="space-y-6">
-        <TabsList className="grid w-full grid-cols-5">
-          <TabsTrigger value="overview" className="transition-all duration-300 ease-in-out hover:bg-[#149A9B]/10 hover:scale-105 data-[state=active]:bg-[#149A9B] data-[state=active]:text-white">Overview</TabsTrigger>
-          <TabsTrigger value="initiation" className="transition-all duration-300 ease-in-out hover:bg-[#149A9B]/10 hover:scale-105 data-[state=active]:bg-[#149A9B] data-[state=active]:text-white">Initiation</TabsTrigger>
-          <TabsTrigger value="categorization" className="transition-all duration-300 ease-in-out hover:bg-[#149A9B]/10 hover:scale-105 data-[state=active]:bg-[#149A9B] data-[state=active]:text-white">Categorization</TabsTrigger>
-          <TabsTrigger value="priority" className="transition-all duration-300 ease-in-out hover:bg-[#149A9B]/10 hover:scale-105 data-[state=active]:bg-[#149A9B] data-[state=active]:text-white">Priority</TabsTrigger>
-          <TabsTrigger value="analytics" className="transition-all duration-300 ease-in-out hover:bg-[#149A9B]/10 hover:scale-105 data-[state=active]:bg-[#149A9B] data-[state=active]:text-white">Analytics</TabsTrigger>
-        </TabsList>
+        <div className="overflow-x-auto">
+          <TabsList className="inline-flex w-max min-w-full lg:grid lg:w-full lg:grid-cols-5 h-auto p-1">
+            <TabsTrigger 
+              value="overview" 
+              className="transition-all duration-300 ease-in-out hover:bg-[#149A9B]/10 hover:scale-105 data-[state=active]:bg-[#149A9B] data-[state=active]:text-white whitespace-nowrap text-xs sm:text-sm"
+            >
+              Overview
+            </TabsTrigger>
+            <TabsTrigger 
+              value="initiation" 
+              className="transition-all duration-300 ease-in-out hover:bg-[#149A9B]/10 hover:scale-105 data-[state=active]:bg-[#149A9B] data-[state=active]:text-white whitespace-nowrap text-xs sm:text-sm"
+            >
+              Initiation
+            </TabsTrigger>
+            <TabsTrigger 
+              value="categorization" 
+              className="transition-all duration-300 ease-in-out hover:bg-[#149A9B]/10 hover:scale-105 data-[state=active]:bg-[#149A9B] data-[state=active]:text-white whitespace-nowrap text-xs sm:text-sm"
+            >
+              Categorization
+            </TabsTrigger>
+            <TabsTrigger 
+              value="priority" 
+              className="transition-all duration-300 ease-in-out hover:bg-[#149A9B]/10 hover:scale-105 data-[state=active]:bg-[#149A9B] data-[state=active]:text-white whitespace-nowrap text-xs sm:text-sm"
+            >
+              Priority
+            </TabsTrigger>
+            <TabsTrigger 
+              value="analytics" 
+              className="transition-all duration-300 ease-in-out hover:bg-[#149A9B]/10 hover:scale-105 data-[state=active]:bg-[#149A9B] data-[state=active]:text-white whitespace-nowrap text-xs sm:text-sm"
+            >
+              Analytics
+            </TabsTrigger>
+          </TabsList>
+        </div>
 
         {/* Overview Tab */}
         <TabsContent value="overview" className="animate-in slide-in-from-bottom fade-in duration-700 ease-out">
