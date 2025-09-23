@@ -477,7 +477,7 @@ class ReviewCacheManager {
       // Add to memory cache
       this.cache.set(key, item);
       return item.data;
-    } catch (e) {
+    } catch (_e) {
       return null;
     }
   }
@@ -494,7 +494,7 @@ class ReviewCacheManager {
 
       const item = JSON.parse(itemJson) as CacheItem<any>;
       return !this.isExpired(item);
-    } catch (e) {
+    } catch (_e) {
       return false;
     }
   }

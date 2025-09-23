@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import { useParams, useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
-import { Star, MessageCircle, Send } from "lucide-react"
+import { Star } from "lucide-react"
 import { useTalentData } from "@/hooks/talent/useTalentData"
 import type { TalentProfile } from "@/lib/mockData/talent-mock-data"
 import TalentLayout from "@/components/talent/talents/TalentLayout"
@@ -12,21 +12,17 @@ import PortfolioCarousel from "@/components/talent/talents/Portfolio"
 import ReviewsCarousel from "@/components/talent/talents/Review"
 import { useTalent } from "@/lib/contexts/TalentContext"
 import { useNotification } from "@/lib/contexts/NotificatonContext"
-import { useMessages } from "@/lib/contexts/MessageContext"
 import LoadingSkeleton from "@/components/shared/LoadingSkeleton"
 
 const TalentProfilePage = () => {
   const params = useParams()
   const router = useRouter()
   const { getTalentById, loading: talentLoading } = useTalentData()
-  const { state: talentState, actions: talentActions } = useTalent()
+  const { state: talentState } = useTalent()
   const {
     actions: { addNotification },
   } = useNotification()
-  const { getConversation } = useMessages()
   const [talent, setTalent] = useState<TalentProfile | null>(null)
-  const [portfolioIndex, setPortfolioIndex] = useState(0)
-  const [reviewsIndex, setReviewsIndex] = useState(0)
 
   const loading = talentLoading || talentState.loading
 
@@ -43,23 +39,11 @@ const TalentProfilePage = () => {
       })
     }
   }
-}, [params.id, loading])
-
-  const handleSendMessage = () => {
-    if (talent) {
-      router.push(`/talent/${talent.id}/messages`)
-    }
-  }
+}, [params.id, loading, getTalentById, addNotification])
 
   const handleSendOffer = () => {
     if (talent) {
       router.push(`/talent/${talent.id}/send-offer`)
-    }
-  }
-
-  const handleViewPortfolioItem = (itemId: string) => {
-    if (talent) {
-      router.push(`/talent/${talent.id}/portfolio/${itemId}`)
     }
   }
 
@@ -93,21 +77,6 @@ const TalentProfilePage = () => {
     )
   }
 
-  const nextPortfolio = () => {
-    setPortfolioIndex((prev) => (prev + 1) % talent.portfolio.length)
-  }
-
-  const prevPortfolio = () => {
-    setPortfolioIndex((prev) => (prev - 1 + talent.portfolio.length) % talent.portfolio.length)
-  }
-
-  const nextReview = () => {
-    setReviewsIndex((prev) => (prev + 1) % talent.reviews.length)
-  }
-
-  const prevReview = () => {
-    setReviewsIndex((prev) => (prev - 1 + talent.reviews.length) % talent.reviews.length)
-  }
 
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, i) => (

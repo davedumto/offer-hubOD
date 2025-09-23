@@ -18,7 +18,7 @@ export const formatDate = (date: Date): string => {
 
 export const getDateRange = (period: '7d' | '30d' | '90d' | '1y' | 'custom', customRange?: DateRange): DateRange => {
   const endDate = new Date();
-  let startDate = new Date();
+  const startDate = new Date();
 
   switch (period) {
     case '7d':
@@ -367,7 +367,7 @@ export const debounce = <T extends (...args: any[]) => any>(
   
   return (...args: Parameters<T>) => {
     clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => func.apply(null, args), delay);
+    timeoutId = setTimeout(() => func(...args), delay);
   };
 };
 
@@ -381,7 +381,7 @@ export const throttle = <T extends (...args: any[]) => any>(
     const now = Date.now();
     if (now - lastCall >= interval) {
       lastCall = now;
-      func.apply(null, args);
+      func(...args);
     }
   };
 };
